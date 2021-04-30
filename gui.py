@@ -11,9 +11,9 @@ from tkinter import PhotoImage, BOTH, END
 def set_icon():
     """ Sets icons based on OS """
     if os.name == "nt":
-        root.iconbitmap('schedule.ico')
+        root.iconbitmap('img/schedule.ico')
     if os.name == 'posix':
-        root_img = PhotoImage(file = 'schedule.png')
+        root_img = PhotoImage(file = 'img/schedule.png')
         root.iconphoto(False, root_img)
 
 # define window
