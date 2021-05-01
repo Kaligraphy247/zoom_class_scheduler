@@ -5,9 +5,10 @@
 # icons from www.iconarchive.com
 # ================================
 
-import tkinter, os, webbrowser, schedule, time
-from tkinter import PhotoImage, BOTH, END
+import tkinter, os, webbrowser, schedule, time, os
+from tkinter import PhotoImage, BOTH, END, messagebox
 
+# HIGH LEVEL-ish FUNCTION
 def set_icon():
     """ Sets icons based on OS """
     if os.name == "nt":
@@ -44,33 +45,33 @@ def countdown(seconds):
 # set sceonds for timer
 seconds = 3
 
-def get_start_time():
-    '''Gets the class' start time'''
-    b = class_start_time.get() # change to suit program
-    print(b)
-
-def get_end_time():
-    c = class_end_time.get() # change to suit program
-    print(c)
 
 def reset():
     class_title.delete(0, END)
     class_start_time.delete(0, END)
     zoom_link.delete(0, END)
+    messagebox.showinfo("Reset", "Cleared!")
 
 def get_zoom_link():
-    d = zoom_link.get() # change to suit program
-    cs = str(class_start_time.get()) # converts class_start_time.get() to string
+    ''' gets zoom link , used as a command for the Schedule Button'''
+    zoomLink = zoom_link.get()
+    classStartTime = str(class_start_time.get()) # converts class_start_time.get() to string
+    # open link
     def open_link():
-        webbrowser.open(d)
-    #cs = str(class_start_time.get())
-    print(type(cs))
-    schedule.every().day.at(cs).do(open_link)
+        ''' Opens link in zoomLink'''
+        webbrowser.open(zoomLink)
+
+    def cancelJob():
+        ''' remove a job from the scheduler '''
+        return schedule.CancelJob
+
+    schedule.every().day.at(classStartTime).do(open_link)
+    messagebox.askokcancel("Schedule", f"{class_title.get()} will start automatically at {class_start_time.get()}")
+    #schedule.every().day.at(classStartTime).do(cancelJob)
     while True:
         schedule.run_pending()
         time.sleep(1)
-    print(d)
-
+        
 
 # Layouts
 input_frame = tkinter.LabelFrame(root, padx=5, pady=5)
@@ -83,7 +84,7 @@ output_frame.pack(fill=BOTH, expand=True, padx=5, pady=5)
 # class title
 class_title_label = tkinter.Label(input_frame, text="Class Title")
 class_title = tkinter.Entry(input_frame, width=20)
-class_title.insert(0, "Class Title")
+class_title.insert(0, "Maths 1")
 
 # class start time 
 class_start_time_label = tkinter.Label(input_frame, text="Start Time")
@@ -100,9 +101,8 @@ class_end_time = tkinter.Entry(input_frame, width=20)
 # zoom link
 zoom_link_label = tkinter.Label(input_frame, text="Zoom Link")
 zoom_link = tkinter.Entry(input_frame, width=50)
-#zoom_link.insert(0, "https://www.google.com/")
+zoom_link.insert(0, "https://www.google.com/")
 
-# Print Success and confirmation message
 
 # grid
 class_title_label.grid(row=0, column=0, padx=5, pady=5)
@@ -119,9 +119,9 @@ zoom_link.grid(row=3, column=1, padx=5, pady=5,sticky="WE")
 
 
 # Create utility buttons
-shedule_button = tkinter.Button(input_frame, text="Schedule", command=get_zoom_link)
-quit_button = tkinter.Button(input_frame, text="Quit", command=root.destroy)
-reset_button = tkinter.Button(input_frame, text="Reset", command=reset)
+shedule_button = tkinter.Button(input_frame, text="Schedule", command=get_zoom_link, underline=0,relief="groove")
+quit_button = tkinter.Button(input_frame, text="Quit", command=root.destroy, underline=0,relief="groove")
+reset_button = tkinter.Button(input_frame, text="Reset", command=reset, underline=0,relief="groove")
 shedule_button.grid(row=4, column=1, padx=1, ipady=5, pady=20, sticky="WE")#sticky="WE"
 quit_button.grid(row=4, column=0,ipadx=5, ipady=5, padx=1, pady=20, sticky="WE")
 reset_button.grid(row=5, column=0, padx=1, pady=1, ipadx=5, ipady=5, columnspan=2)
