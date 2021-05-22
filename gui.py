@@ -35,6 +35,7 @@ def clear_screen():
     elif os.name == 'posix':
         os.system("clear")
 
+# unncessary function for this gui version of the original script
 def countdown(seconds):
     while seconds:
         mins, secs = divmod(seconds, 60)
@@ -44,7 +45,7 @@ def countdown(seconds):
         seconds -= 1 # decrements timer by 1 second(obviously)
 # set sceonds for timer
 seconds = 3
-
+# END
 
 def reset():
     class_title.delete(0, END)
@@ -62,9 +63,6 @@ def get_zoom_link():
         webbrowser.open(zoomLink)
         
 
-    def cancelJob():
-        ''' remove a job from the scheduler '''
-        return schedule.CancelJob
 
     schedule.every().day.at(classStartTime).do(open_link)
     messagebox.askokcancel("Schedule", f"{class_title.get()} will start automatically at {class_start_time.get()}")
