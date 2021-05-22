@@ -46,7 +46,7 @@ You can also use this script with a TUI (terminal).
 
 - Run
 
-        python gui.py
+        python zoom_class.py
 -  or 
 
-        python3 gui.py
+        python3 zoom_class.py
