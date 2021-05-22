@@ -5,7 +5,7 @@
 # icons from www.iconarchive.com
 # ================================
 
-import tkinter, os, webbrowser, schedule, time, os
+import tkinter, os, webbrowser, schedule, time
 from tkinter import PhotoImage, BOTH, END, messagebox
 
 # HIGH LEVEL-ish FUNCTION
@@ -60,6 +60,7 @@ def get_zoom_link():
     def open_link():
         ''' Opens link in zoomLink'''
         webbrowser.open(zoomLink)
+        
 
     def cancelJob():
         ''' remove a job from the scheduler '''
@@ -67,11 +68,14 @@ def get_zoom_link():
 
     schedule.every().day.at(classStartTime).do(open_link)
     messagebox.askokcancel("Schedule", f"{class_title.get()} will start automatically at {class_start_time.get()}")
-    #schedule.every().day.at(classStartTime).do(cancelJob)
+    time.sleep(1)
+    schedule.every().day.at(classStartTime).do(exit)
+
     while True:
         schedule.run_pending()
         time.sleep(1)
-        
+        if open_link == True:
+            cancelJob()
 
 # Layouts
 input_frame = tkinter.LabelFrame(root, padx=5, pady=5)
@@ -109,7 +113,7 @@ class_title_label.grid(row=0, column=0, padx=5, pady=5)
 class_title.grid(row=0, column=1, padx=5, pady=5, sticky="WE")
 # grid
 class_start_time_label.grid(row=1, column=0,  padx=5, pady=5)
-class_start_time.grid(row=1, column=1, padx=5, pady=5,sticky="WE")
+class_start_time.grid(row=1, column=1, padx=5, pady=5, sticky="WE")
 # grid
 '''class_end_time_label.grid(row=2, column=0,  padx=5, pady=5)
 class_end_time.grid(row=2, column=1, padx=5, pady=5,sticky="WE")'''
