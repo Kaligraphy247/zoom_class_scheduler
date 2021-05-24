@@ -1,9 +1,10 @@
 # zoom_class_scheduler
 
--  Automatically launches your zoom class in your deafult browser
+-  Automatically launches your zoom class in your default browser
 
 ## Requirements
-### Tested on Python 3.9.5
+### Tested on Python 3.9.5, Linux
+    works on windows, looks weird too
 - Python3 
 - schedule ( see [Github][1] and [PyPi][2] for more info )
 
