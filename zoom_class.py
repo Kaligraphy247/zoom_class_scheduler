@@ -31,9 +31,11 @@ def exit_script():
     clear_screen()
     exit()
 
-'''Runs Main program - Zoom_Class'''
+# Runs Main program - Zoom_Class
 zoom_class = input("Enter Class Name:: \n")
+time.sleep(0.5)
 class_time = input("Enter Time\n24 hour format, e.g. 16:45:: \n")
+time.sleep(0.5)
 zoom_link = input("Enter Zoom Link:: \n")
 #end_class = input("Enter class end time:: \n")
 time.sleep(1)
